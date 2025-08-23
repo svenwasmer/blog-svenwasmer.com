@@ -1,0 +1,6 @@
+# wrangler.toml
+name = "svenwasmer-blog" # You can change this to your preferred project name
+compatibility_date = "2025-08-23"
+
+[pages_build_output]
+dir = "./dist"
