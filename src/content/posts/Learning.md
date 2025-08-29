@@ -21,4 +21,4 @@ abbrlink: ''
 - OpenAI API Platform first tests with Python SDK
 - Learning how to create virtual environments for Python projects .venv
 - Learning about the existence of poetry as an alternative
-- Learning how to leverae .env files to store API Keys projects based and not globally in a shell resource file like .zshrc
+- Learning how to leverage .env files to store API Keys projects based and not globally in a shell resource file like .zshrc
