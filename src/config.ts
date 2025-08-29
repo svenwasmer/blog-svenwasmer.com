@@ -14,7 +14,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Sven Wasmer',
     // site url
-    url: 'https://svenwasmer.com',
+    url: 'https://www.svenwasmer.com',
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icons/favicon.svg', // or https://example.com/favicon.svg
