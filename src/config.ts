@@ -169,11 +169,11 @@ export const themeConfig: ThemeConfig = {
       },
       //{
       //  name: 'Email',
-      //  url: 'email@radishzz.cc',
+      //  url: '',
       //},
       // {
       //   name: 'X',
-      //   url: 'https://x.com/radishzz_',
+      //   url: 'https://x.com/svenwasmer',
       // },
     ],
     // year of website start
@@ -185,7 +185,7 @@ export const themeConfig: ThemeConfig = {
   preload: {
     // image hosting url
     // optimize remote images in Markdown files to avoid cumulative layout shift
-    imageHostURL: 'image.svenwasmer.com',
+    imageHostURL: '',
     // custom google analytics js
     // for users who route analytics javascript to a customized domain
     // see https://gist.github.com/xiaopc/0602f06ca465d76bd9efd3dda9393738
