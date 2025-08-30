@@ -5,7 +5,7 @@ description: 'Daily journal of my learnings.'
 updated: ''
 tags:
   - Note
-draft: false
+draft: true
 pin: 0
 toc: true
 lang: 'en'
