@@ -7,33 +7,47 @@ const posts = defineCollection({
   schema: z.object({
     // required
     title: z.string(),
-    published: z.date(),
+
+    // published: accept string or Date, coerce to Date
+    published: z.preprocess(
+      (val) => (typeof val === 'string' ? new Date(val) : val),
+      z.date()
+    ),
 
     // optional
     description: z.string().optional().default(''),
+
     updated: z.preprocess(
-      val => val === '' ? undefined : val,
-      z.date().optional(),
+      (val) => (val === '' ? undefined : typeof val === 'string' ? new Date(val) : val),
+      z.date().optional()
     ),
+
     tags: z.array(z.string()).optional().default([]),
 
-    // new additions
-    slug: z.string().optional(), // stable permalinks
-    author: z.string().optional().default('Sven Pierre Wasmer'),
-    image: z.string().optional(), // OG/social preview
-    canonicalUrl: z.string().url().optional(), // SEO canonical
+    // NEW: coerce pin to a number (true→1, false→0, strings→number)
+    pin: z.preprocess((val) => {
+      if (typeof val === 'boolean') return val ? 1 : 0;
+      if (typeof val === 'string' && val.trim() !== '') return Number(val);
+      return val ?? 0;
+    }, z.number().int().min(0).max(99)).optional().default(0),
 
-    // advanced
-    draft: z.boolean().optional().default(false), // you can switch to default(true) if you want "safety first"
-    pin: z.number().int().min(0).max(99).optional().default(0),
+    // keep your existing fields
+    draft: z.boolean().optional().default(false),
     toc: z.boolean().optional().default(themeConfig.global.toc),
     lang: z.enum(['', ...allLocales]).optional().default(''),
     abbrlink: z.string().optional().default('').refine(
-      abbrlink => !abbrlink || /^[a-z0-9\\-]*$/.test(abbrlink),
+      abbrlink => !abbrlink || /^[a-z0-9\-]*$/.test(abbrlink),
       { message: 'Abbrlink can only contain lowercase letters, numbers and hyphens' },
     ),
+
+    // (optional extras you added earlier)
+    slug: z.string().optional(),
+    author: z.string().optional().default('Sven'),
+    image: z.string().optional(),
+    canonicalUrl: z.string().url().optional(),
   }),
 })
+
 
 const about = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/about' }),
