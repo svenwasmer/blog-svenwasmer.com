@@ -8,7 +8,6 @@ const posts = defineCollection({
     // required
     title: z.string(),
     published: z.date(),
-
     // optional
     description: z.string().optional().default(''),
     updated: z.preprocess(
@@ -16,20 +15,13 @@ const posts = defineCollection({
       z.date().optional(),
     ),
     tags: z.array(z.string()).optional().default([]),
-
-    // new additions
-    slug: z.string().optional(), // stable permalinks
-    author: z.string().optional().default('Sven Pierre Wasmer'),
-    image: z.string().optional(), // OG/social preview
-    canonicalUrl: z.string().url().optional(), // SEO canonical
-
-    // advanced
-    draft: z.boolean().optional().default(false), // you can switch to default(true) if you want "safety first"
+    // Advanced
+    draft: z.boolean().optional().default(false),
     pin: z.number().int().min(0).max(99).optional().default(0),
     toc: z.boolean().optional().default(themeConfig.global.toc),
     lang: z.enum(['', ...allLocales]).optional().default(''),
     abbrlink: z.string().optional().default('').refine(
-      abbrlink => !abbrlink || /^[a-z0-9\\-]*$/.test(abbrlink),
+      abbrlink => !abbrlink || /^[a-z0-9\-]*$/.test(abbrlink),
       { message: 'Abbrlink can only contain lowercase letters, numbers and hyphens' },
     ),
   }),
