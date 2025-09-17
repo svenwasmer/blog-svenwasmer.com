@@ -44,7 +44,7 @@ const posts = defineCollection({
     slug: z.string().optional(),
     author: z.string().optional().default('Sven'),
     image: z.string().optional(),
-    canonicalUrl: z.string().url().optional().or(z.literal("")),
+    //canonicalUrl: z.string().url().optional().or(z.literal("")), //removed as i do not syndicate content anywhere else
   }),
 })
 
