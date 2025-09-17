@@ -3,7 +3,7 @@ title: "Hello World"
 description: "My first blog post on the new blog."
 published: "2025-09-17"
 updated: ""
-draft: true
+draft: false
 author: "Sven Wasmer"
 slug: "hello-world"
 tags: [
