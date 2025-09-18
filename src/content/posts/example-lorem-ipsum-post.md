@@ -7,7 +7,7 @@ draft: true
 author: "Sven Wasmer"
 slug: "example-lorem-ipsum-post"
 tags: ["example", "lorem", "draft"]
-pin, 0
+pin: 0
 toc: true
 lang: "en"
 abbrlink: ""
