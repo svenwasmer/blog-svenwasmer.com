@@ -1,8 +1,8 @@
 ---
 title: Universal Post
 published: 2025-03-24
-draft: false
-# lang: '
+draft: true
+# lang: ''
 description: This is a universal multilingual post with unspecified 'lang', displayed by default across all language-specific paths. Este es un artículo universal multilingüe sin definir 'lang', visible por defecto en todas las rutas de idiomas.
 ---
 
@@ -15,7 +15,7 @@ published: 2025-03-24
 ```
 
 <!-- German (de) -->
-Dies ist ein universeller mehrsprachiger Artikel ohne spezifizierte 'lang'-Angabe, der standardmäßig in allen sprachspezifischen Pfaden angezeigt wird.
+Dies ist ein universeller mehrsprachiger Artikel ohne spezifizierte 'lang'-Angabe, der standardmäßig in allen sprachspejifischen Pfaden angezeigt wird.
 
 <!-- English (en) -->
 This is a universal multilingual post with unspecified 'lang', displayed by default across all language-specific paths.
