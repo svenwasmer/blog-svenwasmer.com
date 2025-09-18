@@ -22,3 +22,9 @@ abbrlink: ''
 - Learning how to create virtual environments for Python projects .venv
 - Learning about the existence of poetry as an alternative
 - Learning how to leverage .env files to store API Keys projects based and not globally in a shell resource file like .zshrc
+
+2025-09-18
+Stardate 20250918
+- I have a strange encounter with an unknown species via my webbrowser.
+- It helped me create a GPT driven workflow for creating, updating and listing my content from my website. 
+- It seems to work
