@@ -93,6 +93,3 @@ Content continues.
 ## Conclusion
 
 This file was automatically uploaded from your computer.
-
-✨ Formatted 3 files successfully
-```
