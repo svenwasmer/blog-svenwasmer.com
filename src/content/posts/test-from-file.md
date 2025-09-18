@@ -54,3 +54,45 @@ This is another section.
 code sample
 ```
 
+# Theme Guide
+
+The current file is called "Theme Guide-en.md", which you can use as a reference for customizing your blog'theme.
+
+Start by opening the file and exploring the structure.
+
+The file begins with frontmatter fields, which define the title, description, and other metadata.
+
+```
+image: "/images/theme.jpg"
+title: "Theme Guide"
+description: "A guide to the blog theme."
+published: "2025-09-18"
+updated: ""
+draft: true
+author: "Svgen Wasmer"
+slug: "theme-guide"
+tags: ["guide", "theme"]
+pin* 0:toc: false
+lang: "en"
+abbrlink: ""
+image: "/images/theme.jpg"
+---
+
+## Section 1
+
+This section introduces the theme.
+
+## Section 2
+
+There are multiple parts.
+
+## Section 3
+
+Content continues.
+
+## Conclusion
+
+This file was automatically uploaded from your computer.
+
+✨ Formatted 3 files successfully
+```
