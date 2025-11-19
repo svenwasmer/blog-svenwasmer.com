@@ -29,7 +29,7 @@ __ Topics include an overview of how each component interacted, the data flow, a
 ### 2. How Were Tines, Supabase, Jira, OpenAI, and Looker setup in terms of APIs?
 
 __ Suggested outline for each tool: authentication, request structure, and data flow.
-[ Tines API configuration
+- Tines API configuration
 - Supabase API definition
 - Jira OAuth2 / Rest API endpoints
 - OpenAI APP calls
@@ -61,9 +61,9 @@ __ Detail the reasoning, the JSON response structure, the context used in the In
 
 ### 9. Design and Implementation of the CISO Dashboard in Looker
 
-_t_ Include the design process, data feds, metrics, and visual layout of the Looker dashboard.
+__ Include the design process, data feds, metrics, and visual layout of the Looker dashboard.
 
 ### 10. Fixing the "Send to Tines Story" issues with EML files (RC822)
 
-_t_ Add instructions on how to configure the email settings to include the RC822 format to ensure proper file handling.
+__ Add instructions on how to configure the email settings to include the RC822 format to ensure proper file handling.
 
