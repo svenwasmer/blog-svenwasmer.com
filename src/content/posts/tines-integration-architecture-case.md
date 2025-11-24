@@ -23,8 +23,17 @@ This post will be expanded later with full content for each section.
 
 
 ### 1. What was (the overall) architecture?
+What does the architecture in look like in general. I mean in a vendor agnostic way?
+Suspicious Emails can be forwarded by employees via email to a dedicated Triage-Inbox that the security team monitors. This triggers the flow in Tines as our chosen Integration Framework.
+To figure out if Emails are malicious or benign we need some Threat Intelligence Tools and maybe AI to get some human-readable sense out of it. 
+If the email turns out to be a bad one we create a ticket for our Security Team to check on it. 
+In any case be it a benign or suspicious/malicious email we want to store all the information we got from the Threat Intelligence system in a Data Lake or simple Database.
+Last but not least, to get the insights we most often want to check we need a BI tool to create beautiful charts and reports that show us metrics like the Mean-Time-To-Resolution (MTTR) or Verdict overviews.
+Also a table with all cases and direct links back to the ticket system for a closed-loop system
+![Phishing Mail Triage Architecture](_images/Architecture-overview.01.png)
 
-__ Topics include an overview of how each component interacted, the data flow, and the desision logic.
+In out specific case study we will do all this with the following point solutions and integrate them via their respective APIs in Tines.
+![Phishing Mail Triage Architecture](_images/Architecture-overview.02.png)
 
 ### 2. How Were Tines, Supabase, Jira, OpenAI, and Looker setup in terms of APIs?
 
