@@ -2,12 +2,12 @@
 title: "Intro to Solution Architecture"
 description: "A brief introduction to solution architecture and its role in modern software design."
 published: "2025-12-04"
-updated: ""
-draft: true
+updated: "2025-12-04"
+draft: false
 author: "Sven Wasmer"
 slug: "solution-architecture"
 tags: ["software", "architecture", "design"]
-pin: 0
+pin : 0
 toc: true
 lang: "en"
 abbrlink: "12345"
