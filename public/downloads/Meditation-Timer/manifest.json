@@ -1,7 +1,7 @@
 {
   "name": "Zen Meditation Timer",
   "short_name": "Zen",
-  "start_url": "/downloads/Meditation-Timer/",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#50C878",
