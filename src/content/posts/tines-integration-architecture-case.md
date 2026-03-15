@@ -33,6 +33,9 @@ Also a table with all cases and direct links back to the ticket system for a clo
 ![Phishing Mail Triage Architecture](_images/Architecture-overview.01.png)
 
 In out specific case study we will do all this with the following point solutions and integrate them via their respective APIs in Tines.
+
+-- TODO --
+
 ![Phishing Mail Triage Architecture](_images/Architecture-overview.02.png)
 
 ### 2. How Were Tines, Supabase, Jira, OpenAI, and Looker setup in terms of APIs?
