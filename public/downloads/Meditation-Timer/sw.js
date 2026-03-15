@@ -1,3 +1,4 @@
+
 const CACHE_NAME = 'zen-timer-cache-v1';
 
 // Files that need to be saved to the phone for offline use
