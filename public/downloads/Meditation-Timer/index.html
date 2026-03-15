@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Zen Timer</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 { color: #50C878; font-weight: 300; }
+    #ring-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      touch-action: none; /* Prevents screen scrolling when adjusting timer */
+    }
+    svg { transform: rotate(-90deg); }
+    .bg-ring { stroke: #2a3b2e; }
+    .progress-ring {
+      stroke: #50C878;
+      stroke-dasharray: 816; /* Circumference of the circle */
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+    #timeDisplay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      color: #50C878;
+    }
+    .controls { margin-top: 40px; }
+    button {
+      background-color: #50C878;
+      color: #121212;
+      border: none;
+      padding: 15px 40px;
+      font-size: 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Zen</h1>
+
+  <div id="ring-container">
+    <svg width="300" height="300">
+      <circle class="bg-ring" cx="150" cy="150" r="130" stroke-width="15" fill="none" />
+      <circle id="progress" class="progress-ring" cx="150" cy="150" r="130" stroke-width="15" fill="none" />
+    </svg>
+    <div id="timeDisplay">10:00</div>
+  </div>
+
+  <div class="controls">
+    <button id="startBtn">Start</button>
+  </div>
+
+  <audio id="gongAudio" src="gong.mp3" preload="auto"></audio>
+
+  <script>
+    const container = document.getElementById('ring-container');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const progressRing = document.getElementById('progress');
+    const startBtn = document.getElementById('startBtn');
+    const gongAudio = document.getElementById('gongAudio');
+
+    let totalSeconds = 600; // Default 10 minutes
+    let timeRemaining = totalSeconds;
+    let timerInterval = null;
+    let isRunning = false;
+    const circumference = 816; // 2 * pi * r (130)
+
+    // Format seconds into MM:SS
+    function updateDisplay() {
+      const m = Math.floor(timeRemaining / 60);
+      const s = timeRemaining % 60;
+      timeDisplay.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      
+      const offset = circumference - (timeRemaining / totalSeconds) * circumference;
+      progressRing.style.strokeDashoffset = offset;
+    }
+
+    // Touch and drag to adjust minutes
+    function handleInteraction(e) {
+      if (isRunning) return; // Don't adjust while running
+      
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const deltaX = clientX - centerX;
+      const deltaY = clientY - centerY;
+      
+      let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+      angle = angle + 90; // Adjust for SVG rotation
+      if (angle < 0) angle += 360;
+
+      // Map 360 degrees to 60 minutes
+      let minutes = Math.ceil((angle / 360) * 60);
+      if (minutes === 0) minutes = 60;
+
+      totalSeconds = minutes * 60;
+      timeRemaining = totalSeconds;
+      updateDisplay();
+    }
+
+    let isDragging = false;
+    container.addEventListener('mousedown', () => isDragging = true);
+    document.addEventListener('mouseup', () => isDragging = false);
+    document.addEventListener('mousemove', (e) => { if(isDragging) handleInteraction(e); });
+
+    container.addEventListener('touchstart', handleInteraction);
+    container.addEventListener('touchmove', (e) => {
+      e.preventDefault(); // Stop screen moving
+      handleInteraction(e);
+    });
+
+    // Start / Stop logic
+    startBtn.addEventListener('click', () => {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        startBtn.textContent = 'Start';
+        isRunning = false;
+      } else {
+        // iOS requires audio to be loaded inside a user tap event first
+        gongAudio.load(); 
+        
+        startBtn.textContent = 'Pause';
+        isRunning = true;
+        
+        timerInterval = setInterval(() => {
+          timeRemaining--;
+          updateDisplay();
+          
+          if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.textContent = 'Start';
+            gongAudio.play(); // Play the zen gong
+            timeRemaining = totalSeconds; // Reset
+            updateDisplay();
+          }
+        }, 1000);
+      }
+    });
+
+    // Register Service Worker for Offline Mode
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
