@@ -1,89 +1,57 @@
-# Retypeset
+# Astro Sidey
 
-![Cover Image](assets/images/v1/retypeset-en-desktop.webp)
-![Cover Image](assets/images/v1/retypeset-en-mobile.webp)
+A content-focused, side-anchored minimalist theme designed for developers,
+writers, and digital gardeners. Built on Astro. Nothing in the way, just your
+words on a clean, fast canvas.
 
-[简体中文](assets/docs/README.zh.md)｜[繁体中文](assets/docs/README.zh-tw.md)｜[日本語](assets/docs/README.ja.md)｜[Español](assets/docs/README.es.md)｜[Français](assets/docs/README.fr.md)｜[Русский](assets/docs/README.ru.md)
+**[Live Demo](https://sidey.odhyp.com)** · **[Getting Started](https://sidey.odhyp.com/writings/1-getting-started)**
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. Inspired by [Typography](https://astro-theme-typography.vercel.app/), Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.
-
-## Demo
-
-- [Retypeset](https://retypeset.radishzz.cc/en/)
-- [Retipografía](https://retypeset.radishzz.cc/es/)
-- [Переверстка](https://retypeset.radishzz.cc/ru/)
-- [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
-- [再組版](https://retypeset.radishzz.cc/ja/)
+---
 
 ## Features
 
-- Built with Astro and UnoCSS
-- Support for SEO, Sitemap, OpenGraph, TOC, RSS, MDX and LaTeX
-- i18n support
-- Light / Dark mode
-- Elegant view transitions
-- Rich theme customization
-- Optimized typography
-- Responsive design
-- Comment system
+- **Minimal by design** — few files, little styling, easy to modify
+- **Typography first** — set in [Geist](https://vercel.com/font) with a clean, readable prose layout
+- **Flexoki color scheme** — a warm, paper-like palette for comfortable reading in light/dark mode
+- **Expressive Code** — syntax highlighting with line numbers and collapsible sections
+- **Image lightbox** — click any image to open it full screen
+- **Auto-generated routes** — folder structure maps directly to URLs
+- **Single config file** — everything lives in `sidey.config.ts`
+- **View Transitions** — smooth client-side navigation
+- **RSS Feed & Sitemap** — generated automatically from your content
+- **MDX support** — use components inside your markdown
 
-## Performance
+## Quick Start
 
-<br>
-<p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fen%2F&form_factor=desktop">
-    <img width="710" alt="Retypeset Lighthouse Score" src="assets/images/retypeset-lighthouse-score.svg">
-  <a>
-</p>
+Click **Use this template** on GitHub to create a new repository, then:
 
-## Getting Started
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
+npm run dev
+```
 
-1. [Fork](https://github.com/radishzzz/astro-theme-retypeset/fork) this repository, or use this template to create a new repository.
-2. Run the following commands in your terminal:
+Open `sidey.config.ts` and fill in your details. That is the whole setup.
 
-   ```bash
-   # Clone the repository
-   git clone <repository-url>
+## Content Structure
 
-   # Navigate to the project directory
-   cd <repository-name>
+| File                               | URL                 |
+| ---------------------------------- | ------------------- |
+| `src/content/pages/home.mdx`       | `/`                 |
+| `src/content/pages/about.mdx`      | `/about`            |
+| `src/content/writings/my-post.mdx` | `/writings/my-post` |
 
-   # Install pnpm globally (if not already installed)
-   npm install -g pnpm
+Read more about content structure at [sidey.odhyp.com/writings/2-content-structure](https://sidey.odhyp.com/writings/2-content-structure).
 
-   # Install dependencies
-   pnpm install
+## Built With
 
-   # Start the development server
-   pnpm dev
-   ```
+- [Astro](https://astro.build)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Expressive Code](https://expressive-code.com)
+- [Geist](https://vercel.com/font)
+- [Flexoki](https://stephango.com/flexoki)
 
-3. Refer to the [Theme Guide](https://retypeset.radishzz.cc/en/posts/theme-guide/) to customize your blog and create new posts.
-4. Refer to the [Astro Deployment Guides](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Netlify, Vercel, or other platforms.
+## License
 
-&emsp;[![Deploy to Netlify](assets/images/deploy-netlify.svg)](https://app.netlify.com/start) [![Deploy to Vercel](assets/images/deploy-vercel.svg)](https://vercel.com/new)
-
-## Updates
-
-Retypeset releases [new features](https://github.com/radishzzz/astro-theme-retypeset/issues/18) from time to time. Simply run `pnpm update-theme` to update the theme. If you encounter merge conflicts, please refer to [this video](https://youtu.be/lz5OuKzvadQ?si=sH_ALNgqxrYqNVQT) for manual resolution.
-
-## Credits
-
-- [Typography](https://github.com/moeyua/astro-theme-typography)
-- [Fuwari](https://github.com/saicaca/fuwari)
-- [Redefine](https://github.com/EvanNotFound/hexo-theme-redefine)
-- [AstroPaper](https://github.com/satnaing/astro-paper)
-- [heti](https://github.com/sivan/heti)
-- [EarlySummerSerif](https://github.com/GuiWonder/EarlySummerSerif)
-
-## Star History
-
-<p align="center">
-<a href="https://star-history.com/#radishzzz/astro-theme-retypeset&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-  </picture>
-</p>
+MIT License. See [LICENSE](./LICENSE) for details.
