@@ -1,0 +1,25 @@
+---
+title: "Learning"
+description: "Daily journal of my learnings."
+date: 2025-08-28T20:43:01.159Z
+tags: ["Note"]
+draft: true
+---
+
+
+
+2025-08-28 
+- Setting up a Debian Linux VM on macOS 26 using UTM
+- Using Secretive App on macOS to store SSH keys with TouchID support
+
+2025-08-29
+- OpenAI API Platform first tests with Python SDK
+- Learning how to create virtual environments for Python projects .venv
+- Learning about the existence of poetry as an alternative
+- Learning how to leverage .env files to store API Keys projects based and not globally in a shell resource file like .zshrc
+
+2025-09-18
+Stardate 20250918
+- I have a strange encounter with an unknown species via my webbrowser.
+- It helped me create a GPT driven workflow for creating, updating and listing my content from my website. 
+- It seems to work

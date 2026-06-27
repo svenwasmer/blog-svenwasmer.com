@@ -2,15 +2,13 @@
 import BaseLayout from "@layouts/BaseLayout.astro"
 import Prose from "@components/common/Prose.astro"
 
-const {
-  title = "404",
-  description = "The page you are looking for does not exist.",
-} = Astro.props
+const { frontmatter } = Astro.props
+const { title, description } = frontmatter.data
 ---
 
 <BaseLayout title={title} description={description}>
   <Prose>
     <h1>{title}</h1>
-    <p>{description}</p>
+    <slot />
   </Prose>
 </BaseLayout>

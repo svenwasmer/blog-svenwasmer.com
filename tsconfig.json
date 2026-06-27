@@ -1,18 +1,17 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "@config": ["./sidey.config.ts"],
+      "@parseConfig": ["./src/utils/parseConfig.ts"],
+      "@components/*": ["./src/components/*"],
+      "@content/*": ["./src/content/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@plugins/*": ["./src/plugins/*"],
+      "@utils/*": ["./src/utils/*"],
     },
-    "allowJs": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.astro",
-    "uno.config.ts",
-    "astro.config.ts"
-  ],
-  "exclude": ["dist"]
 }

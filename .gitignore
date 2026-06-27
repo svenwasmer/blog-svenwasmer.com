@@ -24,3 +24,7 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+# Backups
+_backup_retypeset/
+
