@@ -1,57 +1,30 @@
-# Astro Sidey
+# Astro Starter Kit: Portfolio
 
-A content-focused, side-anchored minimalist theme designed for developers,
-writers, and digital gardeners. Built on Astro. Nothing in the way, just your
-words on a clean, fast canvas.
-
-**[Live Demo](https://sidey.odhyp.com)** · **[Getting Started](https://sidey.odhyp.com/writings/1-getting-started)**
-
----
-
-## Features
-
-- **Minimal by design** — few files, little styling, easy to modify
-- **Typography first** — set in [Geist](https://vercel.com/font) with a clean, readable prose layout
-- **Flexoki color scheme** — a warm, paper-like palette for comfortable reading in light/dark mode
-- **Expressive Code** — syntax highlighting with line numbers and collapsible sections
-- **Image lightbox** — click any image to open it full screen
-- **Auto-generated routes** — folder structure maps directly to URLs
-- **Single config file** — everything lives in `sidey.config.ts`
-- **View Transitions** — smooth client-side navigation
-- **RSS Feed & Sitemap** — generated automatically from your content
-- **MDX support** — use components inside your markdown
-
-## Quick Start
-
-Click **Use this template** on GitHub to create a new repository, then:
-
-```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
-npm install
-npm run dev
+```sh
+npm create astro@latest -- --template portfolio
 ```
 
-Open `sidey.config.ts` and fill in your details. That is the whole setup.
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/portfolio)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/portfolio)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/portfolio/devcontainer.json)
 
-## Content Structure
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-| File                               | URL                 |
-| ---------------------------------- | ------------------- |
-| `src/content/pages/home.mdx`       | `/`                 |
-| `src/content/pages/about.mdx`      | `/about`            |
-| `src/content/writings/my-post.mdx` | `/writings/my-post` |
+![portfolio](https://user-images.githubusercontent.com/357379/210779178-a98f0fb7-6b1a-4068-894c-8e1403e26654.jpg)
 
-Read more about content structure at [sidey.odhyp.com/writings/2-content-structure](https://sidey.odhyp.com/writings/2-content-structure).
+## 🧞 Commands
 
-## Built With
+All commands are run from the root of the project, from a terminal:
 
-- [Astro](https://astro.build)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Expressive Code](https://expressive-code.com)
-- [Geist](https://vercel.com/font)
-- [Flexoki](https://stephango.com/flexoki)
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## License
+## 👀 Want to learn more?
 
-MIT License. See [LICENSE](./LICENSE) for details.
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
