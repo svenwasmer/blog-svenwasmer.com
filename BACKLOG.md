@@ -4,6 +4,7 @@ This document tracks ideas, planned features, and ongoing tasks for the blog. Fe
 
 ## Up Next
 
+- [ ] **Table of Contents:** Generate and display a TOC for blog posts that have the `toc: true` frontmatter enabled.
 - [ ] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
 - [ ] **RSS Feed & Sitemap:** Add `@astrojs/rss` and `@astrojs/sitemap` for SEO and feed readers.
 - [ ] **Pagination:** Implement a clean pagination system (e.g., 5-10 posts per page) for the `/blog` index to handle future growth.
