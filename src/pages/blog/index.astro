@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+);
+---
+
+<Layout title="Blog | Sven Wasmer" description="Read all my latest thoughts and articles.">
+	<h1 style="font-size: 3rem; margin-bottom: 3rem;">Blog Posts</h1>
+	
+	<div class="post-list">
+		{posts.map((post) => (
+			<a href={`/blog/${post.id}`} class="glass-card" style="display: block; color: inherit;">
+				<span class="post-meta">{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+				<h3 class="post-title" style="color: #fff; margin-bottom: 0.5rem;">{post.data.title}</h3>
+				<p style="color: var(--text-muted); margin: 0;">{post.data.description}</p>
+			</a>
+		))}
+	</div>
+</Layout>
