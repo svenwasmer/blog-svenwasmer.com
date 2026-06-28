@@ -38,7 +38,7 @@ const { Content, headings } = await render(post);
 
 		<div class="post-layout">
 			<div class="post-content-wrapper">
-				<div style="font-size: 1.125rem; line-height: 1.8;">
+				<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
 					<Content />
 				</div>
 			</div>
@@ -50,7 +50,7 @@ const { Content, headings } = await render(post);
 						<ul style="list-style: none; padding: 0; margin: 0;">
 							{headings.filter((h: any) => h.depth > 1 && h.depth < 4).map((heading: any) => (
 								<li style={`margin-left: ${(heading.depth - 2) * 1.25}rem; margin-bottom: 0.5rem; line-height: 1.4;`}>
-									<a href={`#${heading.slug}`} style="color: var(--accent); opacity: 0.8; font-size: 0.95rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+									<a href={`#${heading.slug}`} class="toc-link">
 										{heading.text}
 									</a>
 								</li>
@@ -63,7 +63,46 @@ const { Content, headings } = await render(post);
 	</article>
 </Layout>
 
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const headingId = entry.target.id;
+					document.querySelectorAll('.toc-link').forEach((link) => {
+						link.classList.remove('active');
+					});
+					const activeLink = document.querySelector(`.toc-link[href="#${headingId}"]`);
+					if (activeLink) activeLink.classList.add('active');
+				}
+			});
+		}, { rootMargin: '-10% 0px -70% 0px' });
+
+		document.querySelectorAll('.post-content-wrapper h2, .post-content-wrapper h3').forEach((heading) => {
+			observer.observe(heading);
+		});
+	});
+</script>
+
 <style>
+	.toc-link {
+		color: var(--text-muted);
+		opacity: 0.8;
+		font-size: 0.95rem;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		display: inline-block;
+	}
+	.toc-link:hover {
+		color: #fff;
+		opacity: 1;
+	}
+	.toc-link.active {
+		color: var(--accent);
+		opacity: 1;
+		font-weight: 600;
+		transform: translateX(4px);
+	}
 	.toc {
 		display: block;
 		margin: 0;
