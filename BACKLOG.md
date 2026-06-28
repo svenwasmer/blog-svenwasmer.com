@@ -6,10 +6,14 @@ This document tracks ideas, planned features, and ongoing tasks for the blog. Fe
 
 
 - [x] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
+- [x] **Custom Favicon:** Create and configure a custom `favicon.svg` and `favicon.ico` for the site.
 - [ ] **RSS Feed & Sitemap:** Add `@astrojs/rss` and `@astrojs/sitemap` for SEO and feed readers.
 - [ ] **Pagination:** Implement a clean pagination system (e.g., 5-10 posts per page) for the `/blog` index to handle future growth.
 - [ ] **Code Syntax Highlighting Theme:** Configure Astro's built-in Shiki engine with a premium theme (like Dracula or One Dark Pro) to match the dark glassmorphism aesthetic.
 - [ ] **Dark/Light Mode Toggle:** Set up CSS variables for a light theme and add a sleek toggle switch to the navigation bar.
+- [ ] **Social Links:** Add GitHub and Mastodon links/icons to the navigation or footer.
+- [ ] **HubSpot Tracking:** Integrate HubSpot Tracking Cookie onboarding for personal HubSpot account.
+- [ ] **Terms & Conditions:** Create a T&C page compliant for an Ireland-resident blogger.
 
 ## Completed
 - [x] **Table of Contents:** Generate and display a TOC for blog posts that have the `toc: true` frontmatter enabled.
