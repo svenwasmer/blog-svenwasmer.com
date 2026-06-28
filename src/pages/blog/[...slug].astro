@@ -27,7 +27,7 @@ if (headings) {
 ---
 
 <Layout title={`${post.data.title} | Sven Wasmer`} description={post.data.description}>
-	<article class="prose">
+	<article class="prose" style="max-width: 800px; margin: 0 auto; position: relative;">
 		<header style="margin-bottom: 3rem; text-align: center;">
 			<span class="post-meta" style="font-family: 'Outfit', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
 			<h1 style="font-size: 3rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.1;">{post.data.title}</h1>
@@ -47,40 +47,36 @@ if (headings) {
 			<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
 		)}
 
-		<div class="post-layout">
-			<div class="post-content-wrapper">
-				<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
-					<Content />
-				</div>
-			</div>
+		{post.data.toc && headings && headings.length > 0 && (
+			<aside class="post-sidebar">
+				<nav class="toc">
+					<h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">Table of Contents</h2>
+					<ul style="list-style: none; padding: 0; margin: 0;">
+						{toc.map((h2: any) => (
+							<li class="toc-item">
+								<a href={`#${h2.slug}`} class="toc-link">
+									{h2.text}
+								</a>
+								{h2.children.length > 0 && (
+									<ul class="toc-sublist" style="display: none; list-style: none; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0; border-left: 1px solid rgba(255,255,255,0.1); margin-left: 0.5rem;">
+										{h2.children.map((h3: any) => (
+											<li style="margin-bottom: 0.5rem;">
+												<a href={`#${h3.slug}`} class="toc-link" style="font-size: 0.85rem;">
+													{h3.text}
+												</a>
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						))}
+					</ul>
+				</nav>
+			</aside>
+		)}
 
-			{post.data.toc && headings && headings.length > 0 && (
-				<aside class="post-sidebar">
-					<nav class="toc" style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 1rem;">
-						<h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.25rem;">Table of Contents</h2>
-						<ul style="list-style: none; padding: 0; margin: 0;">
-							{toc.map((h2: any) => (
-								<li class="toc-item" style="margin-bottom: 0.5rem; line-height: 1.4;">
-									<a href={`#${h2.slug}`} class="toc-link">
-										{h2.text}
-									</a>
-									{h2.children.length > 0 && (
-										<ul class="toc-sublist" style="display: none; list-style: none; padding-left: 1rem; margin-top: 0.25rem; margin-bottom: 0; border-left: 1px solid rgba(255,255,255,0.1); margin-left: 0.5rem;">
-											{h2.children.map((h3: any) => (
-												<li style="margin-bottom: 0.25rem;">
-													<a href={`#${h3.slug}`} class="toc-link" style="font-size: 0.85rem;">
-														{h3.text}
-													</a>
-												</li>
-											))}
-										</ul>
-									)}
-								</li>
-							))}
-						</ul>
-					</nav>
-				</aside>
-			)}
+		<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
+			<Content />
 		</div>
 	</article>
 </Layout>
@@ -111,16 +107,20 @@ if (headings) {
 			});
 		}, { rootMargin: '0px 0px -70% 0px' });
 
-		document.querySelectorAll('.post-content-wrapper h2, .post-content-wrapper h3').forEach((heading) => {
+		document.querySelectorAll('.content-body h2, .content-body h3').forEach((heading) => {
 			observer.observe(heading);
 		});
 	});
 </script>
 
 <style>
+	.toc-item {
+		margin-bottom: 0.85rem;
+		line-height: 1.5;
+	}
 	.toc-link {
 		color: var(--text-muted);
-		opacity: 0.8;
+		opacity: 0.7;
 		font-size: 0.95rem;
 		text-decoration: none;
 		transition: all 0.2s ease;
@@ -133,7 +133,7 @@ if (headings) {
 	.toc-link.active {
 		color: var(--accent);
 		opacity: 1;
-		font-weight: 600;
+		font-weight: 500;
 		transform: translateX(4px);
 	}
 	.toc {
@@ -142,26 +142,34 @@ if (headings) {
 		padding: 0;
 		border-bottom: none;
 	}
-	.post-layout {
-		display: flex;
-		flex-direction: column-reverse;
-		gap: 2rem;
+	
+	/* Mobile styling: TOC sits above content */
+	.post-sidebar {
+		margin-bottom: 3rem;
+		background: rgba(255,255,255,0.02);
+		padding: 1.5rem;
+		border-radius: 1rem;
+		border: 1px solid var(--card-border);
 	}
-	@media (min-width: 1024px) {
-		.post-layout {
-			display: grid;
-			grid-template-columns: 1fr 280px;
-			gap: 4rem;
-			align-items: start;
-		}
-		.post-content-wrapper {
-			grid-column: 1;
-			min-width: 0;
-		}
+
+	/* Desktop styling: TOC breaks out to the far left and floats */
+	@media (min-width: 1300px) {
 		.post-sidebar {
-			grid-column: 2;
+			position: absolute;
+			top: 0;
+			right: 100%;
+			margin-right: 4rem;
+			width: 260px;
+			height: 100%;
+			z-index: 10;
+			background: none;
+			padding: 0;
+			border: none;
+			margin-bottom: 0;
+		}
+		.toc {
 			position: sticky;
-			top: 2rem;
+			top: 6rem;
 		}
 	}
 </style>
