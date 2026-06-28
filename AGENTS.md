@@ -22,3 +22,7 @@ Consult these guides before working on related tasks:
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
 
 **CRITICAL:** Always use the local `Astro docs` MCP server (via the `search_astro_docs` tool) to look up documentation before making architectural decisions or writing new Astro 7 code.
+
+## Git Workflow
+
+- **Feature Branches:** Whenever starting work on a new feature or task from the backlog, always create and switch to a new feature branch first (`git checkout -b feature/<feature-name>`). Do not work directly on `master`.

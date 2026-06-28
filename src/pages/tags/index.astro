@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const tags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
+---
+
+<Layout title="Tags | Sven Wasmer" description="Browse blog posts by tag.">
+	<h1 style="font-size: 3rem; margin-bottom: 3rem;">Tags</h1>
+	
+	<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+		{tags.length > 0 ? tags.map((tag) => (
+			<a href={`/tags/${tag}`} style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 0.75rem 1.5rem; border-radius: 99px; font-size: 1.125rem; font-weight: 500; transition: all 0.3s ease;">
+				#{tag}
+			</a>
+		)) : <p>No tags found.</p>}
+	</div>
+</Layout>
+
+<style>
+	a:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 5px 15px var(--accent-glow);
+		border-color: var(--accent);
+	}
+</style>
