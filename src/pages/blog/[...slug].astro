@@ -23,7 +23,7 @@ const { Content } = await render(post);
 			{post.data.tags && post.data.tags.length > 0 && (
 				<div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
 					{post.data.tags.map((tag: string) => (
-						<a href={`/tags/${tag}`} style="background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; color: var(--text-color); transition: all 0.2s ease; display: inline-block;">#{tag}</a>
+						<a href={`/tags/${tag}`} style="background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; color: var(--text-color); transition: all 0.2s ease; display: inline-block;">{tag}</a>
 					))}
 				</div>
 			)}

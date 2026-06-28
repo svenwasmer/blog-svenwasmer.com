@@ -22,7 +22,7 @@ const { posts } = Astro.props;
 <Layout title={`Posts tagged with ${tag} | Sven Wasmer`} description={`All blog posts tagged with ${tag}.`}>
 	<div style="margin-bottom: 3rem;">
 		<a href="/tags" style="font-size: 0.875rem; color: var(--text-muted);">&larr; Back to all tags</a>
-		<h1 style="font-size: 3rem; margin-top: 1rem;">Posts tagged with <span style="color: var(--accent);">#{tag}</span></h1>
+		<h1 style="font-size: 3rem; margin-top: 1rem;">Posts tagged with <span style="color: var(--accent);">{tag}</span></h1>
 	</div>
 	
 	<div class="post-list">
