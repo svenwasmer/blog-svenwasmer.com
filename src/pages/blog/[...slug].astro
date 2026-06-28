@@ -12,11 +12,22 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+
+const toc: any[] = [];
+if (headings) {
+	headings.filter((h: any) => h.depth > 1 && h.depth < 4).forEach((h: any) => {
+		if (h.depth === 2) {
+			toc.push({ ...h, children: [] });
+		} else if (h.depth === 3 && toc.length > 0) {
+			toc[toc.length - 1].children.push(h);
+		}
+	});
+}
 ---
 
 <Layout title={`${post.data.title} | Sven Wasmer`} description={post.data.description}>
-	<article class="prose">
+	<article class="prose" style="max-width: 800px; margin: 0 auto;">
 		<header style="margin-bottom: 3rem; text-align: center;">
 			<span class="post-meta" style="font-family: 'Outfit', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
 			<h1 style="font-size: 3rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.1;">{post.data.title}</h1>
@@ -36,8 +47,194 @@ const { Content } = await render(post);
 			<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
 		)}
 
-		<div style="font-size: 1.125rem; line-height: 1.8;">
+		{post.data.toc && headings && headings.length > 0 && (
+		<div id="toc-placeholder">
+			<aside class="post-sidebar">
+				<nav class="toc">
+					<h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">Table of Contents</h2>
+					<ul style="list-style: none; padding: 0; margin: 0;">
+						{toc.map((h2: any) => (
+							<li class="toc-item">
+								<a href={`#${h2.slug}`} class="toc-link">
+									{h2.text}
+								</a>
+								{h2.children.length > 0 && (
+									<ul class="toc-sublist" style="display: none; list-style: none; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0; border-left: 1px solid rgba(255,255,255,0.1); margin-left: 0.5rem;">
+										{h2.children.map((h3: any) => (
+											<li style="margin-bottom: 0.5rem;">
+												<a href={`#${h3.slug}`} class="toc-link" style="font-size: 0.85rem;">
+													{h3.text}
+												</a>
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						))}
+					</ul>
+				</nav>
+			</aside>
+		</div>
+		)}
+
+		<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
 			<Content />
 		</div>
 	</article>
 </Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const setActive = (headingId: string) => {
+			document.querySelectorAll('.toc-link').forEach((link) => {
+				link.classList.remove('active');
+			});
+			document.querySelectorAll('.toc-sublist').forEach((list: any) => {
+				list.style.display = 'none';
+			});
+			
+			const activeLink = document.querySelector(`.toc-link[href="#${headingId}"]`);
+			if (activeLink) {
+				activeLink.classList.add('active');
+				const parentItem = activeLink.closest('.toc-item');
+				if (parentItem) {
+					const sublist = parentItem.querySelector('.toc-sublist') as HTMLElement;
+					if (sublist) sublist.style.display = 'block';
+				}
+			}
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					setActive(entry.target.id);
+				}
+			});
+		}, { rootMargin: '0px 0px -60% 0px' });
+
+		const headings = document.querySelectorAll('.content-body h2, .content-body h3');
+		headings.forEach((heading) => {
+			observer.observe(heading);
+		});
+
+		window.addEventListener('scroll', () => {
+			if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+				if (headings.length > 0) {
+					setActive(headings[headings.length - 1].id);
+				}
+			}
+		});
+
+		const placeholder = document.getElementById('toc-placeholder');
+		const sidebar = document.querySelector('.post-sidebar');
+		if (placeholder && sidebar && window.innerWidth >= 1300) {
+			const sentinel = document.createElement('div');
+			placeholder.parentNode?.insertBefore(sentinel, placeholder);
+			
+			const floatObserver = new IntersectionObserver((entries) => {
+				const entry = entries[0];
+				if (entry.boundingClientRect.top < 96) {
+					if (!sidebar.classList.contains('is-floating')) {
+						// Set explicit height to start transition
+						placeholder.style.height = (sidebar as HTMLElement).offsetHeight + 'px';
+						// Force reflow
+						void placeholder.offsetHeight;
+						
+						sidebar.classList.add('is-floating');
+						// Collapse the gap smoothly!
+						placeholder.style.height = '0px';
+					}
+				} else {
+					if (sidebar.classList.contains('is-floating')) {
+						sidebar.classList.remove('is-floating');
+						// Restore height to push text back down
+						placeholder.style.height = (sidebar as HTMLElement).offsetHeight + 'px';
+						
+						setTimeout(() => {
+							if (!sidebar.classList.contains('is-floating')) {
+								placeholder.style.height = 'auto';
+							}
+						}, 500);
+					}
+				}
+			}, { rootMargin: '-96px 0px 0px 0px', threshold: [0, 1] });
+			floatObserver.observe(sentinel);
+		}
+	});
+</script>
+
+<style>
+	#toc-placeholder {
+		transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		overflow: hidden;
+	}
+	.toc-item {
+		margin-bottom: 0.85rem;
+		line-height: 1.5;
+	}
+	.toc-link {
+		color: var(--text-muted);
+		opacity: 0.7;
+		font-size: 0.95rem;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		display: inline-block;
+	}
+	.toc-link:hover {
+		color: #fff;
+		opacity: 1;
+	}
+	.toc-link.active {
+		color: var(--accent);
+		opacity: 1;
+		font-weight: 500;
+		transform: translateX(4px);
+	}
+	.toc {
+		display: block;
+		margin: 0;
+		padding: 0;
+		border-bottom: none;
+	}
+	
+	/* Mobile & Initial styling: TOC sits above content as a box */
+	.post-sidebar {
+		margin-bottom: 3rem;
+		background: rgba(255,255,255,0.02);
+		padding: 1.5rem;
+		border-radius: 1rem;
+		border: 1px solid var(--card-border);
+		transition: background 0.3s ease, border 0.3s ease;
+	}
+
+	@keyframes swoopIn {
+		from {
+			opacity: 0;
+			transform: translateX(20px) translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0) translateY(0);
+		}
+	}
+
+	/* Desktop styling: When scrolled past, it floats to the left */
+	@media (min-width: 1300px) {
+		.post-sidebar.is-floating {
+			position: fixed;
+			top: 6rem;
+			left: calc(50% - 400px - 260px - 2rem);
+			width: 260px;
+			z-index: 10;
+			background: transparent;
+			padding: 0;
+			border-color: transparent;
+			margin-bottom: 0;
+			animation: swoopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+		.post-sidebar.is-floating .toc {
+			max-height: calc(100vh - 8rem);
+			overflow-y: auto;
+		}
+	}
+</style>
