@@ -85,32 +85,44 @@ if (headings) {
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
+		const setActive = (headingId: string) => {
+			document.querySelectorAll('.toc-link').forEach((link) => {
+				link.classList.remove('active');
+			});
+			document.querySelectorAll('.toc-sublist').forEach((list: any) => {
+				list.style.display = 'none';
+			});
+			
+			const activeLink = document.querySelector(`.toc-link[href="#${headingId}"]`);
+			if (activeLink) {
+				activeLink.classList.add('active');
+				const parentItem = activeLink.closest('.toc-item');
+				if (parentItem) {
+					const sublist = parentItem.querySelector('.toc-sublist') as HTMLElement;
+					if (sublist) sublist.style.display = 'block';
+				}
+			}
+		};
+
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
-					const headingId = entry.target.id;
-					document.querySelectorAll('.toc-link').forEach((link) => {
-						link.classList.remove('active');
-					});
-					document.querySelectorAll('.toc-sublist').forEach((list: any) => {
-						list.style.display = 'none';
-					});
-					
-					const activeLink = document.querySelector(`.toc-link[href="#${headingId}"]`);
-					if (activeLink) {
-						activeLink.classList.add('active');
-						const parentItem = activeLink.closest('.toc-item');
-						if (parentItem) {
-							const sublist = parentItem.querySelector('.toc-sublist') as HTMLElement;
-							if (sublist) sublist.style.display = 'block';
-						}
-					}
+					setActive(entry.target.id);
 				}
 			});
-		}, { rootMargin: '0px 0px -70% 0px' });
+		}, { rootMargin: '0px 0px -60% 0px' });
 
-		document.querySelectorAll('.content-body h2, .content-body h3').forEach((heading) => {
+		const headings = document.querySelectorAll('.content-body h2, .content-body h3');
+		headings.forEach((heading) => {
 			observer.observe(heading);
+		});
+
+		window.addEventListener('scroll', () => {
+			if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+				if (headings.length > 0) {
+					setActive(headings[headings.length - 1].id);
+				}
+			}
 		});
 
 		const placeholder = document.getElementById('toc-placeholder');
