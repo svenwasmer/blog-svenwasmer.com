@@ -130,17 +130,31 @@ if (headings) {
 		if (placeholder && sidebar && window.innerWidth >= 1300) {
 			const sentinel = document.createElement('div');
 			placeholder.parentNode?.insertBefore(sentinel, placeholder);
+			
 			const floatObserver = new IntersectionObserver((entries) => {
 				const entry = entries[0];
 				if (entry.boundingClientRect.top < 96) {
 					if (!sidebar.classList.contains('is-floating')) {
+						// Set explicit height to start transition
 						placeholder.style.height = (sidebar as HTMLElement).offsetHeight + 'px';
+						// Force reflow
+						void placeholder.offsetHeight;
+						
 						sidebar.classList.add('is-floating');
+						// Collapse the gap smoothly!
+						placeholder.style.height = '0px';
 					}
 				} else {
 					if (sidebar.classList.contains('is-floating')) {
-						placeholder.style.height = 'auto';
 						sidebar.classList.remove('is-floating');
+						// Restore height to push text back down
+						placeholder.style.height = (sidebar as HTMLElement).offsetHeight + 'px';
+						
+						setTimeout(() => {
+							if (!sidebar.classList.contains('is-floating')) {
+								placeholder.style.height = 'auto';
+							}
+						}, 500);
 					}
 				}
 			}, { rootMargin: '-96px 0px 0px 0px', threshold: [0, 1] });
@@ -150,6 +164,10 @@ if (headings) {
 </script>
 
 <style>
+	#toc-placeholder {
+		transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		overflow: hidden;
+	}
 	.toc-item {
 		margin-bottom: 0.85rem;
 		line-height: 1.5;
