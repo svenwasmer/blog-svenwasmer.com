@@ -27,7 +27,7 @@ if (headings) {
 ---
 
 <Layout title={`${post.data.title} | Sven Wasmer`} description={post.data.description}>
-	<article class="prose" style="max-width: 800px; margin: 0 auto; position: relative;">
+	<article class="prose" style="max-width: 800px; margin: 0 auto;">
 		<header style="margin-bottom: 3rem; text-align: center;">
 			<span class="post-meta" style="font-family: 'Outfit', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
 			<h1 style="font-size: 3rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.1;">{post.data.title}</h1>
@@ -40,14 +40,15 @@ if (headings) {
 			)}
 		</header>
 
-		{post.data.image && typeof post.data.image === 'object' && (
-			<Image src={post.data.image} alt={post.data.title} width={1024} height={576} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
-		)}
-		{post.data.image && typeof post.data.image === 'string' && (
-			<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
-		)}
+		<div style="position: relative;">
+			{post.data.image && typeof post.data.image === 'object' && (
+				<Image src={post.data.image} alt={post.data.title} width={1024} height={576} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
+			)}
+			{post.data.image && typeof post.data.image === 'string' && (
+				<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
+			)}
 
-		{post.data.toc && headings && headings.length > 0 && (
+			{post.data.toc && headings && headings.length > 0 && (
 			<aside class="post-sidebar">
 				<nav class="toc">
 					<h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">Table of Contents</h2>
@@ -75,8 +76,9 @@ if (headings) {
 			</aside>
 		)}
 
-		<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
-			<Content />
+			<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
+				<Content />
+			</div>
 		</div>
 	</article>
 </Layout>
