@@ -40,15 +40,15 @@ if (headings) {
 			)}
 		</header>
 
-		<div style="position: relative;">
-			{post.data.image && typeof post.data.image === 'object' && (
-				<Image src={post.data.image} alt={post.data.title} width={1024} height={576} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
-			)}
-			{post.data.image && typeof post.data.image === 'string' && (
-				<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
-			)}
+		{post.data.image && typeof post.data.image === 'object' && (
+			<Image src={post.data.image} alt={post.data.title} width={1024} height={576} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
+		)}
+		{post.data.image && typeof post.data.image === 'string' && (
+			<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
+		)}
 
-			{post.data.toc && headings && headings.length > 0 && (
+		{post.data.toc && headings && headings.length > 0 && (
+		<div id="toc-placeholder">
 			<aside class="post-sidebar">
 				<nav class="toc">
 					<h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">Table of Contents</h2>
@@ -74,11 +74,11 @@ if (headings) {
 					</ul>
 				</nav>
 			</aside>
+		</div>
 		)}
 
-			<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
-				<Content />
-			</div>
+		<div class="content-body" style="font-size: 1.125rem; line-height: 1.8;">
+			<Content />
 		</div>
 	</article>
 </Layout>
@@ -112,6 +112,28 @@ if (headings) {
 		document.querySelectorAll('.content-body h2, .content-body h3').forEach((heading) => {
 			observer.observe(heading);
 		});
+
+		const placeholder = document.getElementById('toc-placeholder');
+		const sidebar = document.querySelector('.post-sidebar');
+		if (placeholder && sidebar && window.innerWidth >= 1300) {
+			const sentinel = document.createElement('div');
+			placeholder.parentNode?.insertBefore(sentinel, placeholder);
+			const floatObserver = new IntersectionObserver((entries) => {
+				const entry = entries[0];
+				if (entry.boundingClientRect.top < 96) {
+					if (!sidebar.classList.contains('is-floating')) {
+						placeholder.style.height = (sidebar as HTMLElement).offsetHeight + 'px';
+						sidebar.classList.add('is-floating');
+					}
+				} else {
+					if (sidebar.classList.contains('is-floating')) {
+						placeholder.style.height = 'auto';
+						sidebar.classList.remove('is-floating');
+					}
+				}
+			}, { rootMargin: '-96px 0px 0px 0px', threshold: [0, 1] });
+			floatObserver.observe(sentinel);
+		}
 	});
 </script>
 
@@ -145,33 +167,44 @@ if (headings) {
 		border-bottom: none;
 	}
 	
-	/* Mobile styling: TOC sits above content */
+	/* Mobile & Initial styling: TOC sits above content as a box */
 	.post-sidebar {
 		margin-bottom: 3rem;
 		background: rgba(255,255,255,0.02);
 		padding: 1.5rem;
 		border-radius: 1rem;
 		border: 1px solid var(--card-border);
+		transition: background 0.3s ease, border 0.3s ease;
 	}
 
-	/* Desktop styling: TOC breaks out to the far left and floats */
-	@media (min-width: 1300px) {
-		.post-sidebar {
-			position: absolute;
-			top: 0;
-			right: 100%;
-			margin-right: 4rem;
-			width: 260px;
-			height: 100%;
-			z-index: 10;
-			background: none;
-			padding: 0;
-			border: none;
-			margin-bottom: 0;
+	@keyframes swoopIn {
+		from {
+			opacity: 0;
+			transform: translateX(20px) translateY(-10px);
 		}
-		.toc {
-			position: sticky;
+		to {
+			opacity: 1;
+			transform: translateX(0) translateY(0);
+		}
+	}
+
+	/* Desktop styling: When scrolled past, it floats to the left */
+	@media (min-width: 1300px) {
+		.post-sidebar.is-floating {
+			position: fixed;
 			top: 6rem;
+			left: calc(50% - 400px - 260px - 2rem);
+			width: 260px;
+			z-index: 10;
+			background: transparent;
+			padding: 0;
+			border-color: transparent;
+			margin-bottom: 0;
+			animation: swoopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+		.post-sidebar.is-floating .toc {
+			max-height: calc(100vh - 8rem);
+			overflow-y: auto;
 		}
 	}
 </style>
