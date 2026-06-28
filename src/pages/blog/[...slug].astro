@@ -76,7 +76,7 @@ const { Content, headings } = await render(post);
 					if (activeLink) activeLink.classList.add('active');
 				}
 			});
-		}, { rootMargin: '-10% 0px -70% 0px' });
+		}, { rootMargin: '0px 0px -70% 0px' });
 
 		document.querySelectorAll('.post-content-wrapper h2, .post-content-wrapper h3').forEach((heading) => {
 			observer.observe(heading);

@@ -116,6 +116,7 @@ nav .links a:hover {
 .prose h1, .prose h2, .prose h3 {
   margin-top: 3rem;
   margin-bottom: 1rem;
+  scroll-margin-top: 5rem;
 }
 .prose p {
   margin-bottom: 1.5rem;
