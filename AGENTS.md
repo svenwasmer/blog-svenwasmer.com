@@ -25,5 +25,6 @@ Consult these guides before working on related tasks:
 
 ## Git Workflow
 
+- **No Auto-Commits:** NEVER automatically commit code without explicit user approval. Always ask for permission before running `git commit`.
 - **Feature Branches:** Whenever starting work on a new feature or task from the backlog, always create and switch to a new feature branch first (`git checkout -b feature/<feature-name>`). Do not work directly on `master`.
 - **Merging Features:** When finishing a feature, always merge it into `master` using `git merge --no-ff <branch-name>`. This forces a merge commit and preserves the visual feature lane in the Git history graph.

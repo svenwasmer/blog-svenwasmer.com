@@ -13,6 +13,17 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
+
+const toc: any[] = [];
+if (headings) {
+	headings.filter((h: any) => h.depth > 1 && h.depth < 4).forEach((h: any) => {
+		if (h.depth === 2) {
+			toc.push({ ...h, children: [] });
+		} else if (h.depth === 3 && toc.length > 0) {
+			toc[toc.length - 1].children.push(h);
+		}
+	});
+}
 ---
 
 <Layout title={`${post.data.title} | Sven Wasmer`} description={post.data.description}>
@@ -48,11 +59,22 @@ const { Content, headings } = await render(post);
 					<nav class="toc" style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 1rem;">
 						<h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.25rem;">Table of Contents</h2>
 						<ul style="list-style: none; padding: 0; margin: 0;">
-							{headings.filter((h: any) => h.depth > 1 && h.depth < 4).map((heading: any) => (
-								<li style={`margin-left: ${(heading.depth - 2) * 1.25}rem; margin-bottom: 0.5rem; line-height: 1.4;`}>
-									<a href={`#${heading.slug}`} class="toc-link">
-										{heading.text}
+							{toc.map((h2: any) => (
+								<li class="toc-item" style="margin-bottom: 0.5rem; line-height: 1.4;">
+									<a href={`#${h2.slug}`} class="toc-link">
+										{h2.text}
 									</a>
+									{h2.children.length > 0 && (
+										<ul class="toc-sublist" style="display: none; list-style: none; padding-left: 1rem; margin-top: 0.25rem; margin-bottom: 0; border-left: 1px solid rgba(255,255,255,0.1); margin-left: 0.5rem;">
+											{h2.children.map((h3: any) => (
+												<li style="margin-bottom: 0.25rem;">
+													<a href={`#${h3.slug}`} class="toc-link" style="font-size: 0.85rem;">
+														{h3.text}
+													</a>
+												</li>
+											))}
+										</ul>
+									)}
 								</li>
 							))}
 						</ul>
@@ -72,8 +94,19 @@ const { Content, headings } = await render(post);
 					document.querySelectorAll('.toc-link').forEach((link) => {
 						link.classList.remove('active');
 					});
+					document.querySelectorAll('.toc-sublist').forEach((list: any) => {
+						list.style.display = 'none';
+					});
+					
 					const activeLink = document.querySelector(`.toc-link[href="#${headingId}"]`);
-					if (activeLink) activeLink.classList.add('active');
+					if (activeLink) {
+						activeLink.classList.add('active');
+						const parentItem = activeLink.closest('.toc-item');
+						if (parentItem) {
+							const sublist = parentItem.querySelector('.toc-sublist') as HTMLElement;
+							if (sublist) sublist.style.display = 'block';
+						}
+					}
 				}
 			});
 		}, { rootMargin: '0px 0px -70% 0px' });
