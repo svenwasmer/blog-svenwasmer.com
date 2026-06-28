@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <Layout title={`${post.data.title} | Sven Wasmer`} description={post.data.description}>
@@ -34,6 +34,21 @@ const { Content } = await render(post);
 		)}
 		{post.data.image && typeof post.data.image === 'string' && (
 			<img src={post.data.image} alt={post.data.title} style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 1rem; margin-bottom: 3rem; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);" />
+		)}
+
+		{post.data.toc && headings && headings.length > 0 && (
+			<nav class="toc" style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+				<h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.25rem;">Table of Contents</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					{headings.filter((h: any) => h.depth > 1 && h.depth < 4).map((heading: any) => (
+						<li style={`margin-left: ${(heading.depth - 2) * 1.25}rem; margin-bottom: 0.5rem; line-height: 1.4;`}>
+							<a href={`#${heading.slug}`} style="color: var(--accent); opacity: 0.8; font-size: 0.95rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+								{heading.text}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
 		)}
 
 		<div style="font-size: 1.125rem; line-height: 1.8;">
