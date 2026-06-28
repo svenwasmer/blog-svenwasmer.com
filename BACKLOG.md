@@ -5,8 +5,7 @@ This document tracks ideas, planned features, and ongoing tasks for the blog. Fe
 ## Up Next
 
 
-- [x] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
-- [x] **Custom Favicon:** Create and configure a custom `favicon.svg` and `favicon.ico` for the site.
+
 - [ ] **RSS Feed & Sitemap:** Add `@astrojs/rss` and `@astrojs/sitemap` for SEO and feed readers.
 - [ ] **Pagination:** Implement a clean pagination system (e.g., 5-10 posts per page) for the `/blog` index to handle future growth.
 - [ ] **Code Syntax Highlighting Theme:** Configure Astro's built-in Shiki engine with a premium theme (like Dracula or One Dark Pro) to match the dark glassmorphism aesthetic.
@@ -16,6 +15,8 @@ This document tracks ideas, planned features, and ongoing tasks for the blog. Fe
 - [ ] **Terms & Conditions:** Create a T&C page compliant for an Ireland-resident blogger.
 
 ## Completed
+- [x] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
+- [x] **Custom Favicon:** Create and configure a custom `favicon.svg` and `favicon.ico` for the site.
 - [x] **Table of Contents:** Generate and display a TOC for blog posts that have the `toc: true` frontmatter enabled.
 - [x] **Tags & Categories System:** Created a dedicated `/tags` page and individual feeds so readers can easily filter content by topic.
 - [x] Migrate from old Portfolio theme to a fresh minimal Astro 7 build.
