@@ -11,7 +11,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
 	
 	<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
 		{tags.length > 0 ? tags.map((tag) => (
-			<a href={`/tags/${tag}`} style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 0.75rem 1.5rem; border-radius: 99px; font-size: 1.125rem; font-weight: 500; transition: all 0.3s ease;">
+			<a href={`/tags/${tag}`} style="background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; color: var(--text-color); transition: all 0.2s ease; display: inline-block;">
 				{tag}
 			</a>
 		)) : <p>No tags found.</p>}
