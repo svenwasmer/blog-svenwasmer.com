@@ -20,3 +20,5 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+**CRITICAL:** Always use the local `Astro docs` MCP server (via the `search_astro_docs` tool) to look up documentation before making architectural decisions or writing new Astro 7 code.
