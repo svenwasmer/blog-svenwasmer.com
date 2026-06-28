@@ -5,7 +5,7 @@ This document tracks ideas, planned features, and ongoing tasks for the blog. Fe
 ## Up Next
 
 
-- [ ] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
+- [x] **Native View Transitions:** Add Astro's built-in View Transitions API for buttery-smooth, SPA-like navigation between pages.
 - [ ] **RSS Feed & Sitemap:** Add `@astrojs/rss` and `@astrojs/sitemap` for SEO and feed readers.
 - [ ] **Pagination:** Implement a clean pagination system (e.g., 5-10 posts per page) for the `/blog` index to handle future growth.
 - [ ] **Code Syntax Highlighting Theme:** Configure Astro's built-in Shiki engine with a premium theme (like Dracula or One Dark Pro) to match the dark glassmorphism aesthetic.
